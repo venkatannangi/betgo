@@ -15,6 +15,11 @@ func Login (w http.ResponseWriter, r *http.Request) {
 
 	if len(formData) == 0 {
 		http.ServeFile(w,r, "/home/doowad/git/betgo/www/Login.html");
+	} else {
+		//do login
+
+		//set ssoid in cookie and app key
+		//cookie := http.Cookie
 	}
 
 	// call iss
