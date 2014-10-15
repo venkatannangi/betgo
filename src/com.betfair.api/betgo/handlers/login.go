@@ -14,7 +14,7 @@ func Login (w http.ResponseWriter, r *http.Request) {
 	fmt.Println(formData)
 
 	if len(formData) == 0 {
-		http.ServeFile(w,r, "/home/doowad/git/betgo/www/Login.html");
+		http.ServeFile(w,r, "www/Login.html");
 	} else {
 		//do login
 

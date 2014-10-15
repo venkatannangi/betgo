@@ -13,7 +13,7 @@ func LoadHome(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(sessionToken)
 
 	if sessionToken != nil {
-		http.ServeFile(w,r, "/home/doowad/git/betgo/www/Index.html");
+		http.ServeFile(w,r, "www/Index.html");
 	} else {
 		Login(w,r)
 	}

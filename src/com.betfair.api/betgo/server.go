@@ -28,6 +28,6 @@ func home(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/login", login)
 	http.HandleFunc("/", home)
-	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("/home/doowad/git/betgo/www/css"))))
+	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("www/css"))))
 	http.ListenAndServe(":9000", nil)
 }
