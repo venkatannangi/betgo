@@ -17,20 +17,16 @@ func shouthelloHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello %s!", strings.ToUpper(remPartOfURL))
 }
 
-func loginCall(w http.ResponseWriter, r *http.Request) {
-	if (strings.Contains(r.URL.Path, ".")) {
-		chttp.ServeHTTP(w, r)
-	} else {
-		//fmt.Fprintf(w, "HomeHandler")
-		handlers.Login(w,r)
-	}
-
+func login(w http.ResponseWriter, r *http.Request) {
+	handlers.Login(w,r)
 }
-var chttp = http.NewServeMux()
+
+func home(w http.ResponseWriter, r *http.Request) {
+	handlers.LoadHome(w,r)
+}
+
 func main() {
-	http.HandleFunc("/hello/", helloHandler)
-	http.HandleFunc("/shouthello/", shouthelloHandler)
-	http.HandleFunc("/login", loginCall)
-	chttp.Handle("/login", http.FileServer(http.Dir("/home/doowad/git/betgo/www/")))
-	http.ListenAndServe("localhost:9000", nil)
+	http.HandleFunc("/login", login)
+	http.HandleFunc("/", home)
+	http.ListenAndServe(":9000", nil)
 }

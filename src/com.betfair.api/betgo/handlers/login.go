@@ -1,12 +1,8 @@
 package handlers
 
-import (
-	"net/http"
-	"html/template"
-)
-func Login (w http.ResponseWriter, r *http.Request) {
+import "net/http"
 
-	t, _ := template.ParseFiles("/home/doowad/git/betgo/www/Login.html")
-	t.Execute(w, nil)
+func Login (w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w,r, "/home/doowad/git/betgo/www/Login.html");
 }
 
