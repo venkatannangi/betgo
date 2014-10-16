@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func Login (w http.ResponseWriter, r *http.Request, wwwDir string) {
+func Login (w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
 		return
@@ -14,17 +14,22 @@ func Login (w http.ResponseWriter, r *http.Request, wwwDir string) {
 	fmt.Println(formData)
 
 	if len(formData) == 0 {
-		loginPage := wwwDir + "/Login.html"
-		http.ServeFile(w,r, loginPage);
+		//ask for user input
+		http.Redirect(w, r, "/www/Login.html", 302)
+		return;
 	} else {
-		//do login
+		//process user input, call ISS for authentication
 
 		//set ssoid in cookie and app key
-		//cookie := http.Cookie
+		cookie := &http.Cookie{
+			Name: "ssoid",
+			Value: "foobar",
+		}
+		http.SetCookie(w, cookie)
+		r.AddCookie(cookie)
+		LoadHome(w,r)
 	}
 
-	// call iss
 
-	//set cookie
 }
 
