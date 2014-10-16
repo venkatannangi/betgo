@@ -14,7 +14,7 @@ func LoadHome(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(sessionToken)
 
 	if sessionToken != nil {
-		http.Redirect(w, r, "/www/Index.html", 302)
+		http.Redirect(w, r, "/www/home.html", 302)
 		return
 	} else {
 		Login(w,r)

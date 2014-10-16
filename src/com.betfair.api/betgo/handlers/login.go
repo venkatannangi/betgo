@@ -15,7 +15,7 @@ func Login (w http.ResponseWriter, r *http.Request) {
 
 	if len(formData) == 0 {
 		//ask for user input
-		http.Redirect(w, r, "/www/Login.html", 302)
+		http.Redirect(w, r, "/www/login.html", 302)
 		return;
 	} else {
 		//process user input, call ISS for authentication
