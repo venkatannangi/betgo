@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	"fmt"
+	"os"
 	"strings"
 	"com.betfair.api/betgo/handlers"
 )
@@ -18,16 +19,27 @@ func shouthelloHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func login(w http.ResponseWriter, r *http.Request) {
-	handlers.Login(w,r)
+	handlers.Login(w,r, WWWDir)
 }
 
 func home(w http.ResponseWriter, r *http.Request) {
-	handlers.LoadHome(w,r)
+	handlers.LoadHome(w,r, WWWDir)
 }
 
+var WWWDir string
+
 func main() {
+	args := os.Args
+	if len(args) != 2 {
+		panic("Expecting localtion www dir as a parameter")
+	}
+
+	WWWDir = args[1]
+	cssDir := WWWDir + "/css"
+
+	fmt.Println(cssDir)
 	http.HandleFunc("/login", login)
 	http.HandleFunc("/", home)
-	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("www/css"))))
+	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir(cssDir))))
 	http.ListenAndServe(":9000", nil)
 }

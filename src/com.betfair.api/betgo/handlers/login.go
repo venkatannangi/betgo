@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func Login (w http.ResponseWriter, r *http.Request) {
+func Login (w http.ResponseWriter, r *http.Request, wwwDir string) {
 	err := r.ParseForm()
 	if err != nil {
 		return
@@ -14,7 +14,8 @@ func Login (w http.ResponseWriter, r *http.Request) {
 	fmt.Println(formData)
 
 	if len(formData) == 0 {
-		http.ServeFile(w,r, "www/Login.html");
+		loginPage := wwwDir + "/Login.html"
+		http.ServeFile(w,r, loginPage);
 	} else {
 		//do login
 

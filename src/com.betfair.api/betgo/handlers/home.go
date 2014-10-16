@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"fmt"
 )
-func LoadHome(w http.ResponseWriter, r *http.Request) {
+func LoadHome(w http.ResponseWriter, r *http.Request, wwwDir string) {
 	fmt.Println("home")
 	//if no cookie redirect to login
 
@@ -13,9 +13,10 @@ func LoadHome(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(sessionToken)
 
 	if sessionToken != nil {
-		http.ServeFile(w,r, "www/Index.html");
+		homePage := wwwDir + "/Index.html"
+		http.ServeFile(w,r, homePage);
 	} else {
-		Login(w,r)
+		Login(w,r, wwwDir)
 	}
 
 
