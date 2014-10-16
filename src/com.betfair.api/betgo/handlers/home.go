@@ -1,12 +1,7 @@
 package handlers
 
-import (
-	"net/http"
-	"fmt"
-)
+import "net/http"
 func LoadHome(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("home")
-	//if no cookie redirect to login
 
 	appKey,	sessionToken := getApiCredentials(r)
 
@@ -19,22 +14,3 @@ func LoadHome(w http.ResponseWriter, r *http.Request) {
 }
 
 
-
-func GetMenu(w http.ResponseWriter, r *http.Request) {
-
-}
-
-func getApiCredentials(r *http.Request) (appKey string, sessionToken string) {
-	appKeyCookie,_ := r.Cookie("appKey")
-	if appKeyCookie != nil {
-		appKey = appKeyCookie.Value
-	}
-
-
-	sessionTokenCookie,_ := r.Cookie("ssoid")
-	if sessionTokenCookie != nil {
-		sessionToken = sessionTokenCookie.Value
-	}
-
-	return appKey, sessionToken
-}
