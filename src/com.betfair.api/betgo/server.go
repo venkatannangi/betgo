@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"fmt"
 	"os"
-	"strings"
 	"com.betfair.api/betgo/handlers"
 )
 
