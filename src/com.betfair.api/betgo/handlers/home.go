@@ -8,17 +8,33 @@ func LoadHome(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("home")
 	//if no cookie redirect to login
 
-	sessionToken,_ := r.Cookie("ssoid")
+	appKey,	sessionToken := getApiCredentials(r)
 
-	fmt.Println(r.Cookies())
-	fmt.Println(sessionToken)
-
-	if sessionToken != nil {
+	if sessionToken != "" && appKey != "" {
 		http.Redirect(w, r, "/www/home.html", 302)
 		return
 	} else {
 		Login(w,r)
 	}
+}
 
 
+
+func GetMenu(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func getApiCredentials(r *http.Request) (appKey string, sessionToken string) {
+	appKeyCookie,_ := r.Cookie("appKey")
+	if appKeyCookie != nil {
+		appKey = appKeyCookie.Value
+	}
+
+
+	sessionTokenCookie,_ := r.Cookie("ssoid")
+	if sessionTokenCookie != nil {
+		sessionToken = sessionTokenCookie.Value
+	}
+
+	return appKey, sessionToken
 }

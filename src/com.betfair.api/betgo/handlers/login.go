@@ -21,12 +21,18 @@ func Login (w http.ResponseWriter, r *http.Request) {
 		//process user input, call ISS for authentication
 
 		//set ssoid in cookie and app key
-		cookie := &http.Cookie{
+		ssoidCookie := &http.Cookie{
 			Name: "ssoid",
 			Value: "foobar",
 		}
-		http.SetCookie(w, cookie)
-		r.AddCookie(cookie)
+		appKeyCookie := &http.Cookie{
+			Name: "appKey",
+			Value: "foobarKey",
+		}
+		http.SetCookie(w, ssoidCookie)
+		http.SetCookie(w, appKeyCookie)
+		r.AddCookie(ssoidCookie)
+		r.AddCookie(appKeyCookie)
 		LoadHome(w,r)
 	}
 
