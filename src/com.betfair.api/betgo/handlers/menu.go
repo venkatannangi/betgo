@@ -3,7 +3,6 @@ package handlers
 import (
 	"net/http"
 	"fmt"
-	"io/ioutil"
 	"com.betfair.api/betgo/helpers"
 	"com.betfair.api/betgo/to"
 )
@@ -14,10 +13,10 @@ const menuEndpoint = "https://api.betfair.com/exchange/betting/rest/v1/en/naviga
 
 func GetMenu(w http.ResponseWriter, r *http.Request) {
 	//appKey,	sessionToken := getApiCredentials(r)
-	client := &http.Client{}
+	/*client := &http.Client{}
 	req,_ := http.NewRequest("GET", menuEndpoint, nil)
 
-	addCredentialToHeader(req, "", "")
+	//addCredentialToHeader(req, "", "")
 	fmt.Println(req)
 	fmt.Println(req.Header)
 	resp,_ := client.Do(req)
@@ -28,18 +27,18 @@ func GetMenu(w http.ResponseWriter, r *http.Request) {
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
 
-	fmt.Println("response Body:", string(body))
+	fmt.Println("response Body:", string(body))*/
 
 }
 
 func GetSports(w http.ResponseWriter, r *http.Request) {
 
-	marketFilter := helpers.GetMarketFilter(r.Body)
+	var marketFilter to.MarketFilter = helpers.GetMarketFilter(r.Body)
 
-	eventTypeRequest := to.
+	/*eventTypeRequest := to.
 
 	//client := &http.Client{}
-	//req,_ := http.NewRequest("GET", menuEndpoint, nil)
+	//req,_ := http.NewRequest("GET", menuEndpoint, nil)*/
 	fmt.Println(marketFilter)
 	fmt.Println(marketFilter.ExchangeIds)
 

@@ -18,12 +18,12 @@ func GetMarketFilter(payload io.ReadCloser) (filter *to.MarketFilter) {
 			return filter
 		} else {
 			log.Fatal(err)
-			return err
+			return nil
 		}
 
 	}else {
 		log.Fatal(err)
-		return err
+		return nil
 	}
 
 }
