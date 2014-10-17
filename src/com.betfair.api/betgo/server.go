@@ -15,8 +15,8 @@ func home(w http.ResponseWriter, r *http.Request) {
 	handlers.LoadHome(w,r)
 }
 
-func getMenu(w http.ResponseWriter, r *http.Request) {
-	handlers.GetMenu(w,r)
+func getSports(w http.ResponseWriter, r *http.Request) {
+	handlers.GetSports(w,r)
 }
 
 var wwwDir string
@@ -34,7 +34,7 @@ func main() {
 
 	http.HandleFunc("/", home)
 	http.HandleFunc("/login", login)
-	http.HandleFunc("/getMenu", getMenu)
+	http.HandleFunc("/getSports", getSports)
 	http.Handle("/www/", http.StripPrefix("/www/", http.FileServer(http.Dir(wwwDir))))
 	http.ListenAndServe(":9000", nil)
 }
