@@ -4,6 +4,10 @@ import (
 	"time"
 )
 
+type EventTypeRequest struct {
+	Filter MarketFilter
+	Locale string
+}
 
 type MarketFilter struct {
 	ExchangeIds []string
