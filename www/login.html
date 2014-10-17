@@ -2,20 +2,21 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/default.css">
     <link rel="stylesheet" href="css/login.css">
     <title>LogIn</title>
 </head>
 <body>
 <section id="loginBox">
-    <h2>Login</h2>
-    <form action="/login" method="post" class="login">
+    <h1>Login</h1>
+    <form action="/login" method="post" class="default-form">
         Application Key:
         <input type="text" name="appKey" id="appKey" placeholder="Betfair Application Key" required="required" />
         Username:
         <input type="text" name="username" id="username" placeholder="Betfair Username" required="required" />
         Password:
         <input type="password" name="password" id="password" placeholder="Betfair password" required="required" />
-        <button type="submit" class="btn-login">LOG IN</button>
+        <button type="submit" class="btn-submit">LOG IN</button>
     </form>
 </section>
 </body>

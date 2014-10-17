@@ -13,7 +13,7 @@ func GetMenu(w http.ResponseWriter, r *http.Request) {
 	client := &http.Client{}
 	req,_ := http.NewRequest("GET", menuEndpoint, nil)
 
-	addCredentialToHeader(req, "appkey", "sessionToken")
+	addCredentialToHeader(req, "", "")
 	fmt.Println(req)
 	fmt.Println(req.Header)
 	resp,_ := client.Do(req)

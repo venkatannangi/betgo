@@ -22,5 +22,4 @@ func getApiCredentials(r *http.Request) (appKey string, sessionToken string) {
 func addCredentialToHeader(r *http.Request, appKey string, sessionToken string) {
 	r.Header.Add("X-Application", appKey)
 	r.Header.Add("X-Authentication", sessionToken)
-	r.Header.Add("Accept-Encoding", "gzip")
 }

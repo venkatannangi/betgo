@@ -1,5 +1,24 @@
-div.menu {
-    margin: 20px auto;
-    width: 350px;
+div.main {
+    position: relative;
+}
 
+
+div.faceted_search {
+    width: 350px;
+    position: absolute;
+    left:0
+
+}
+
+select.facet-listbox{
+    width: 300px
+}
+
+div.main_2 {
+    position: absolute;
+    left:351px
+}
+
+
+div.market_catalogue {
 }
