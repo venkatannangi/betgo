@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"fmt"
 	"com.betfair.api/betgo/helpers"
+	"com.betfair.api/betgo/to"
 )
 
 const menuEndpoint = "https://api.betfair.com/exchange/betting/rest/v1/en/navigation/menu.json"
@@ -31,13 +32,10 @@ func GetMenu(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetSports(w http.ResponseWriter, r *http.Request) {
+	marketFilter := &to.MarketFilter{}
 
-	marketFilter := helpers.GetMarketFilter(r.Body)
+	helpers.Parse(r.Body, marketFilter)
 
-	/*eventTypeRequest := to.
-
-	//client := &http.Client{}
-	//req,_ := http.NewRequest("GET", menuEndpoint, nil)*/
 	fmt.Println(marketFilter)
 	fmt.Println(marketFilter.ExchangeIds)
 

@@ -3,8 +3,8 @@ package handlers
 import (
 	"net/http"
 	"fmt"
-	"io/ioutil"
 	"com.betfair.api/betgo/helpers"
+	"com.betfair.api/betgo/to"
 )
 
 func Login(w http.ResponseWriter, r *http.Request) {
@@ -40,15 +40,10 @@ func Login(w http.ResponseWriter, r *http.Request) {
 			panic(err)
 		}
 		defer resp.Body.Close()
-		body, _ := ioutil.ReadAll(resp.Body)
-		fmt.Println("response Body:", string(body))
 
-		var response helpers.SessionInfo
-		response = helpers.ParseSSOResponse(string(body))
-		/*if ( response.Error != "" && response.Token == "" ) {
-			http.Redirect(w, r, "/www/home.html", 401)
-			return;
-		}*/
+		response := &to.SessionInfo{}
+		helpers.Parse(resp.Body, response)
+
 		fmt.Println("session token"+response.Token)
 		//set ssoid in cookie and app key
 		ssoidCookie := &http.Cookie{
@@ -65,7 +60,5 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		r.AddCookie(appKeyCookie)
 		LoadHome(w, r)
 	}
-
-
 }
 

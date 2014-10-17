@@ -63,6 +63,14 @@ type MarketBook struct {
 	Runners []RunnerPriceInfo
 }
 
+type SessionInfo struct {
+	Token string
+	Product string
+	Status  string
+	Error string
+}
+
+
 type MarketBookResponse struct {
 	Result []MarketBook
 }

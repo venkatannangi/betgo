@@ -4,26 +4,22 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"io"
-	"com.betfair.api/betgo/to"
 	"log"
 )
 
-
-
-func GetMarketFilter(payload io.ReadCloser) (filter *to.MarketFilter) {
-
+func Parse(payload io.ReadCloser, v interface {}){
 	if body,err := ioutil.ReadAll(payload); err == nil{
-		filter = &to.MarketFilter{}
-		if err := json.Unmarshal(body, &filter); err == nil {
-			return filter
-		} else {
+		if err := json.Unmarshal(body, v); err == nil {
+			return
+		}else {
 			log.Fatal(err)
-			return nil
 		}
-
-	}else {
+	} else {
 		log.Fatal(err)
-		return nil
 	}
 
 }
+
+
+
+
