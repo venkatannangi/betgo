@@ -3,14 +3,9 @@ package handlers
 import (
 	"net/http"
 	"fmt"
-	"bytes"
 	"io/ioutil"
+	"com.betfair.api/betgo/helpers"
 )
-
-type login_request struct{
-	username string
-	password string
-}
 
 func Login(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
@@ -30,19 +25,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		applicationkey := r.FormValue("appKey")
 		password := r.FormValue("password")
 
-		var jsonStr = []byte(`{"username":"` + username + `","password":"` + password + `"}`)
+	    url := "https://identitysso.betfair.com/api/login?username="+username+"&password="+password
 
-		/* decoder := json.NewDecoder(r.Body);
-		 var lr login_request
-		 err := decoder.Decode(&lr)
-		 fmt.Println(lr)
-		if err != nil {
-			fmt.Println(err)
-		}*/
-
-		url := "https://identitysso.betfair.com/api/login"
-		fmt.Println(bytes.NewBuffer(jsonStr))
-		req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
+		req, err := http.NewRequest("POST", url, nil)
 		if (err != nil) {
 			fmt.Println(err)
 		}
@@ -55,15 +40,20 @@ func Login(w http.ResponseWriter, r *http.Request) {
 			panic(err)
 		}
 		defer resp.Body.Close()
-		fmt.Println("response Status:", resp.Status)
-		fmt.Println("response Headers:", resp.Header)
 		body, _ := ioutil.ReadAll(resp.Body)
 		fmt.Println("response Body:", string(body))
 
+		var response helpers.SessionInfo
+		response = helpers.ParseSSOResponse(string(body))
+		/*if ( response.Error != "" && response.Token == "" ) {
+			http.Redirect(w, r, "/www/home.html", 401)
+			return;
+		}*/
+		fmt.Println("session token"+response.Token)
 		//set ssoid in cookie and app key
 		ssoidCookie := &http.Cookie{
 			Name: "ssoid",
-			Value: "foobar",
+			Value: response.Token,
 		}
 		appKeyCookie := &http.Cookie{
 			Name: "appKey",
