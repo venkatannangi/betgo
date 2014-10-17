@@ -30,7 +30,7 @@ func main() {
 		wwwDir = args[1]
 	}
 
-	fmt.Printf("Using wwwDir location %s", wwwDir)
+	fmt.Println("Using wwwDir location " + wwwDir)
 
 	http.HandleFunc("/", home)
 	http.HandleFunc("/login", login)
