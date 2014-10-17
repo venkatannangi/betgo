@@ -19,7 +19,4 @@ func getApiCredentials(r *http.Request) (appKey string, sessionToken string) {
 	return appKey, sessionToken
 }
 
-func addCredentialToHeader(r *http.Request, appKey string, sessionToken string) {
-	r.Header.Add("X-Application", appKey)
-	r.Header.Add("X-Authentication", sessionToken)
-}
+
