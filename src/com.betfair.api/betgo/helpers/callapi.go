@@ -9,34 +9,32 @@ import (
 )
 
 func SendRequest (url string, appKey string, ssoid string, payload string, v interface{}) error {
+	if req , err := http.NewRequest("POST", url, strings.NewReader(payload)); err == nil {
+		req.Header.Add("X-Application", appKey)
+		req.Header.Add("X-Authentication", ssoid)
+		req.Header.Add("Accept", "application/json")
+		req.Header.Add("Content-type", "application/json")
 
-	client := &http.Client{}
-	req , err := http.NewRequest("POST", url, strings.NewReader(payload))
-	req.Header.Add("X-Application", appKey)
-	req.Header.Add("X-Authentication", ssoid)
-	req.Header.Add("Accept", "application/json")
-	req.Header.Add("Content-type", "application/json")
+		client := &http.Client{}
+		if response, err := client.Do(req); err == nil {
+			defer response.Body.Close()
+			if contents, err := ioutil.ReadAll(response.Body); err == nil {
+				if err := json.Unmarshal(contents, v); err != nil {
+					log.Fatal(err)
+					return err
+				}
+			} else {
+				log.Fatal(err)
+				return err
+			}
+		} else {
+			log.Fatal(err)
+			return err
+		}
+		return nil;
 
-	response, err := client.Do(req)
-
-	if err != nil {
+	}else {
 		log.Fatal(err)
 		return err
-	} else {
-		defer response.Body.Close()
-		contents, err := ioutil.ReadAll(response.Body)
-
-		if err := json.Unmarshal(contents, v); err != nil {
-			log.Fatal(err)
-			return err
-		}
-
-		if err != nil {
-			log.Fatal(err)
-			return err
-		}
-
-		return nil
-
 	}
 }
