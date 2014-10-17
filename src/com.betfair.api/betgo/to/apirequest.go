@@ -5,8 +5,8 @@ import (
 )
 
 type EventTypeRequest struct {
-	Filter MarketFilter
-	Locale string
+	Filter MarketFilter `json:"filter"`
+	Locale string `json:"locale"`
 }
 
 type MarketFilter struct {

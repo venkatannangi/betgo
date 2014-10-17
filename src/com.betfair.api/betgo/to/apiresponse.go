@@ -9,6 +9,21 @@ type MarketTypeResponse struct {
 	Result []MaketType
 }
 
+//evenType definitions
+type EventType struct {
+	Id string
+	Name string
+}
+
+type EventTypeCount struct {
+	EventType EventType
+	MarketCount int32
+}
+
+type EventTypeResponse struct {
+	Result [] EventType
+}
+
 //competitions definitions
 type Competition struct {
 	Id string

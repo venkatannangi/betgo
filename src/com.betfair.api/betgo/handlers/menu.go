@@ -33,12 +33,21 @@ func GetMenu(w http.ResponseWriter, r *http.Request) {
 
 func GetSports(w http.ResponseWriter, r *http.Request) {
 	marketFilter := &to.MarketFilter{}
+	appKey,	sessionToken := getApiCredentials(r)
 
 	helpers.Parse(r.Body, marketFilter)
-
 	fmt.Println(marketFilter)
-	fmt.Println(marketFilter.ExchangeIds)
+	fmt.Println(marketFilter)
 
+	eventTypeRequest := to.EventTypeRequest{
+		*marketFilter,
+		"",
+	}
+	eventTypeResponse := &to.EventTypeResponse{}
+
+	eventTypeUrl := api_betting_endpoint + "/listEventTypes/"
+	helpers.SendRequest(eventTypeUrl, appKey, sessionToken, eventTypeRequest, eventTypeResponse)
+	fmt.Println(eventTypeResponse)
 }
 
 

@@ -6,10 +6,12 @@ import (
 	"log"
 	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 func SendRequest (url string, appKey string, ssoid string, payload interface {}, v interface{}) error {
 	if body, err := json.Marshal(payload); err == nil {
+		fmt.Println(string(body))
 		if req , err := http.NewRequest("POST", url, bytes.NewReader(body)); err == nil {
 			req.Header.Add("X-Application", appKey)
 			req.Header.Add("X-Authentication", ssoid)
@@ -19,6 +21,7 @@ func SendRequest (url string, appKey string, ssoid string, payload interface {},
 			if response, err := client.Do(req); err == nil {
 				defer response.Body.Close()
 				if contents, err := ioutil.ReadAll(response.Body); err == nil {
+					fmt.Println(string(contents))
 					if err := json.Unmarshal(contents, v); err == nil {
 						return nil
 					} else {
